@@ -1,62 +1,67 @@
 <template>
-  <v-table>
-    <thead>
-    <tr>
-      <th class="text-left">
-        Product Name
-      </th>
-      <th class="text-left">
-        Quantity
-      </th>
-      <th class="text-left">
-        Action
-      </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr v-for="item in transactions" :key="item.$id">
-      <td>
-        {{ item.product_name }}
-      </td>
-      <td>
-        {{ item.quantity }}
-      </td>
-      <td>
-        <v-btn @click="deleteTransaction(item)" color="error" text>
-          Delete
-        </v-btn>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <v-select
-            v-model="newTransaction.product"
-            :items="products.map(product => { return { title: product.name, value: product }})"
-            variant="outlined"
-            density="comfortable"
-            chips
-            label="Pilih Produk"
-        ></v-select>
-      </td>
-      <td>
-        <v-text-field
-            v-model="newTransaction.quantity"
-            hint="Contoh : 10"
-            label="Jumlah Produk"
-            variant="outlined"
-            density="comfortable"
-            class="my-5"
-            @keydown.enter="addTransaction"
-        />
-      </td>
-      <td>
-        <v-btn class="mb-7" @click="addTransaction" color="success" text>
-          Add
-        </v-btn>
-      </td>
-    </tr>
-    </tbody>
-  </v-table>
+  <v-row>
+    <v-col>
+      <h2 class="pa-2">Testing Transactions</h2>
+      <v-table>
+        <thead>
+        <tr>
+          <th class="text-left">
+            Product Name
+          </th>
+          <th class="text-left">
+            Quantity
+          </th>
+          <th class="text-left">
+            Action
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="item in transactions" :key="item.$id">
+          <td>
+            {{ item.product_name }}
+          </td>
+          <td>
+            {{ item.quantity }}
+          </td>
+          <td>
+            <v-btn @click="deleteTransaction(item)" color="error" text>
+              Delete
+            </v-btn>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <v-select
+                v-model="newTransaction.product"
+                :items="products.map(product => { return { title: product.name, value: product }})"
+                variant="outlined"
+                density="comfortable"
+                chips
+                label="Pilih Produk"
+            ></v-select>
+          </td>
+          <td>
+            <v-text-field
+                v-model="newTransaction.quantity"
+                hint="Contoh : 10"
+                label="Jumlah Produk"
+                variant="outlined"
+                density="comfortable"
+                class="my-5"
+                @keydown.enter="addTransaction"
+            />
+          </td>
+          <td>
+            <v-btn class="mb-7" @click="addTransaction" color="success" text>
+              Add
+            </v-btn>
+          </td>
+        </tr>
+        </tbody>
+      </v-table>
+    </v-col>
+  </v-row>
 </template>
 
 <script>

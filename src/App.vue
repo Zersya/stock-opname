@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer>
+    <v-navigation-drawer permanent rail expand-on-hover>
       <v-list density="compact" nav>
         <v-list-item prepend-icon="mdi-view-dashboard" title="Home" value="home" @click="$router.push('/')" />
         <v-list-item prepend-icon="mdi-code-brackets" title="Products" value="products" @click="$router.push('/products')" />

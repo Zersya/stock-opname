@@ -1,107 +1,112 @@
 <template>
-  <v-table>
-    <thead>
-    <tr>
-      <th class="text-left">
-        Name
-      </th>
-      <th class="text-left">
-        Jumlah
-      </th>
-      <th class="text-left">
-        Description
-      </th>
-      <th class="text-left">
-        Spec
-      </th>
-      <th class="text-left">
-        Action
-      </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr v-for="(item,_) in products" :key="item.$id">
-      <td>
-        {{ item.name }}
-      </td>
-      <td>
-        {{ item.quantity ?? 0 }}
-      </td>
-      <td>
-        {{ item.description }}
-      </td>
-      <td>
-        {{  getMergeProductSpecs(item).join(', ') }}
-      </td>
-      <td>
-        <v-btn @click="deleteProduct(item)" color="error" text>
-          Delete
-        </v-btn>
-      </td>
-    </tr>
-    <tr>
-      <td style="vertical-align:top">
-        <v-text-field
-            :class="isProductSpecsEmpty"
-            v-model="newProduct.name"
-            hint="Contoh : Rujak Coel"
-            label="Nama Produk"
-            variant="outlined"
-            density="comfortable"
-            @keydown.enter="addProduct"
-        />
-      </td>
-      <td style="vertical-align:top">
-        <v-text-field
-            :class="isProductSpecsEmpty"
-            v-model="newProduct.quantity"
-            hint="Contoh : 10"
-            label="Jumlah Produk"
-            variant="outlined"
-            density="comfortable"
-            @keydown.enter="addProduct"
-        />
-      </td>
-      <td style="vertical-align:top">
-        <v-text-field
-            :class="isProductSpecsEmpty"
-            v-model="newProduct.description"
-            hint="Contoh : Campuran buah segar dengan saus gula merah"
-            label="Deskripsi Produk"
-            variant="outlined"
-            density="comfortable"
-            @keydown.enter="addProduct"
-        />
-      </td>
-      <td>
-          <v-select
-              :class="isProductSpecsEmpty"
-              v-model="newProduct.product_specification"
-              :items="productSpecs.map(item => { return { title: item.name, value: item } })"
-              variant="outlined"
-              density="comfortable"
-              label="Pilih Spec"
-              multiple
-          />
-        <div v-for="(item, index) in newProduct.product_specification">
-          <v-text-field
-              v-model="newProduct.product_specification_amounts[index]"
-              hint="Contoh : 1"
-              :label="'Nilai ' + item.name + ' ( ' + item.unit + ' )'"
-              variant="outlined"
-              density="comfortable"
-              @keydown.enter="addProduct"
-          />
-        </div>
-      </td>
-      <td style="vertical-align:top">
-        <v-btn :class="isProductSpecsEmpty" @click="addProduct" color="success" text>
-          Add
-        </v-btn>
-      </td>
-    </tr>
-    </tbody>
-  </v-table>
+  <v-row>
+    <v-col>
+      <h2 class="pa-2">List Product</h2>
+      <v-table>
+        <thead>
+        <tr>
+          <th class="text-left">
+            Name
+          </th>
+          <th class="text-left">
+            Jumlah
+          </th>
+          <th class="text-left">
+            Description
+          </th>
+          <th class="text-left">
+            Spec
+          </th>
+          <th class="text-left">
+            Action
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(item,_) in products" :key="item.$id">
+          <td>
+            {{ item.name }}
+          </td>
+          <td>
+            {{ item.quantity ?? 0 }}
+          </td>
+          <td>
+            {{ item.description }}
+          </td>
+          <td>
+            {{  getMergeProductSpecs(item).join(', ') }}
+          </td>
+          <td>
+            <v-btn @click="deleteProduct(item)" color="error" text>
+              Delete
+            </v-btn>
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align:top">
+            <v-text-field
+                :class="isProductSpecsEmpty"
+                v-model="newProduct.name"
+                hint="Contoh : Rujak Coel"
+                label="Nama Produk"
+                variant="outlined"
+                density="comfortable"
+                @keydown.enter="addProduct"
+            />
+          </td>
+          <td style="vertical-align:top">
+            <v-text-field
+                :class="isProductSpecsEmpty"
+                v-model="newProduct.quantity"
+                hint="Contoh : 10"
+                label="Jumlah Produk"
+                variant="outlined"
+                density="comfortable"
+                @keydown.enter="addProduct"
+            />
+          </td>
+          <td style="vertical-align:top">
+            <v-text-field
+                :class="isProductSpecsEmpty"
+                v-model="newProduct.description"
+                hint="Contoh : Campuran buah segar dengan saus gula merah"
+                label="Deskripsi Produk"
+                variant="outlined"
+                density="comfortable"
+                @keydown.enter="addProduct"
+            />
+          </td>
+          <td>
+            <v-select
+                :class="isProductSpecsEmpty"
+                v-model="newProduct.product_specification"
+                :items="productSpecs.map(item => { return { title: item.name, value: item } })"
+                variant="outlined"
+                density="comfortable"
+                label="Pilih Spec"
+                multiple
+            />
+            <div v-for="(item, index) in newProduct.product_specification">
+              <v-text-field
+                  v-model="newProduct.product_specification_amounts[index]"
+                  hint="Contoh : 1"
+                  :label="'Nilai ' + item.name + ' ( ' + item.unit + ' )'"
+                  variant="outlined"
+                  density="comfortable"
+                  @keydown.enter="addProduct"
+              />
+            </div>
+          </td>
+          <td style="vertical-align:top">
+            <v-btn :class="isProductSpecsEmpty" @click="addProduct" color="success" text>
+              Add
+            </v-btn>
+          </td>
+        </tr>
+        </tbody>
+      </v-table>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -148,6 +153,11 @@ export default {
     },
 
     addProduct () {
+      if (this.newProduct.product_specification_amounts.length !== this.newProduct.product_specification.length) {
+        alert('Jumlah spec tidak sama dengan jumlah nilai spec');
+        return;
+      }
+
       const temp = this.newProduct;
       const product = {
         name: temp.name,
@@ -176,10 +186,11 @@ export default {
       this.newProduct = {
         name: "",
         description: "",
-        quantity: 0,
         product_specification_ids: [],
         product_specification_names: [],
-        product_specification_units: []
+        product_specification_units: [],
+        product_specification: [],
+        product_specification_amounts: [],
       };
     },
 
@@ -209,7 +220,7 @@ export default {
 
   computed: {
     isProductSpecsEmpty () {
-      if (this.newProduct.product_specification.length === 0) {
+      if (this.newProduct.product_specification?.length === 0) {
         return "mt-5"
       }
 
